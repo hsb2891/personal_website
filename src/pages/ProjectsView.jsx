@@ -6,10 +6,18 @@ import Box from '@mui/material/Box';
 // import ProjectsView from './ProjectsView';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import axios from 'axios';
 
 // TODO: fix this using backend!
 function ProjectsView({ type }) {
   const images = useRef([]);
+
+  const fetchProjects = async () => {
+    const response = await axios.get('http://localhost:3001/projects');
+    console.log(response);
+  }
+
+  fetchProjects();
 
   useEffect(() => {
     // Use the current value of the array reference
