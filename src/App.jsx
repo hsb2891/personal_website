@@ -2,7 +2,7 @@ import './App.css';
 import useLocalStorage from 'use-local-storage';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Resume from './pages/Resume';
 import Socials from './pages/Socials';

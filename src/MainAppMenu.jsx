@@ -21,7 +21,7 @@ function MainAppMenu(darkTheme) {
   
   let navigate = useNavigate();
   const reroute = (path) => {
-    navigate('/' + path);
+    navigate('/#/' + path);
   }
 
   return (
