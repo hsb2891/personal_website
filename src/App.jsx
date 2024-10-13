@@ -2,7 +2,7 @@ import './App.css';
 import useLocalStorage from 'use-local-storage';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Resume from './pages/Resume';
 import Socials from './pages/Socials';
@@ -43,32 +43,34 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div style={themeStyles}>
-        <Grid2 container spacing={0} direction="column" alignItems="center" justifyContent="center">
-          <Button
-            color={darkTheme ? '#FFFFFF' : '#000000'}
-            onClick={toggleTheme}
-            sx={{ marginTop: '20px' }}
-          >
-              Switch to {darkTheme ? 'Light' : 'Dark'} Mode
-          </Button>
-          <MainAppMenu darkTheme={darkTheme}/>
-          <Grid2 item>
-            <Routes>
-              <Route path="/" element={<Home darkTheme={darkTheme}/>}/>
-              <Route path="/resume" element={<Resume/>}/>
-              <Route path="/projects" element={<Projects/>}/>
-              {/* <Route path="/recipes" element={<Recipes/>}/> */}
-              <Route path="/socials" element={<Socials/>}/>
-            </Routes>
+      <Router>
+        <div style={themeStyles}>
+          <Grid2 container spacing={0} direction="column" alignItems="center" justifyContent="center">
+            <Button
+              color={darkTheme ? '#FFFFFF' : '#000000'}
+              onClick={toggleTheme}
+              sx={{ marginTop: '20px' }}
+            >
+                Switch to {darkTheme ? 'Light' : 'Dark'} Mode
+            </Button>
+            <MainAppMenu darkTheme={darkTheme}/>
+            <Grid2 item>
+              <Routes>
+                <Route path="/" element={<Home darkTheme={darkTheme}/>}/>
+                <Route path="/resume" element={<Resume/>}/>
+                <Route path="/projects" element={<Projects/>}/>
+                {/* <Route path="/recipes" element={<Recipes/>}/> */}
+                <Route path="/socials" element={<Socials/>}/>
+              </Routes>
+            </Grid2>
           </Grid2>
-        </Grid2>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="body2">
-            © 2024 Hiranmayee's Website
-          </Typography>
-        </Box>
-      </div>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2">
+              © 2024 Hiranmayee's Website
+            </Typography>
+          </Box>
+        </div>
+      </Router>
     </ThemeProvider>
   );
 }
