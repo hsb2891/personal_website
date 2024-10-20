@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Grid2, Typography } from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -11,15 +11,16 @@ import axios from 'axios';
 // TODO: fix this using backend!
 function ProjectsView({ type }) {
   const images = useRef([]);
+  const [imgs, setImgs] = useState([]);
 
   const fetchProjects = async () => {
     const response = await axios.get('http://localhost:3001/projects');
     console.log(response);
+    setImgs(response.data[0]);
   }
 
-  fetchProjects();
-
   useEffect(() => {
+    fetchProjects();
     // Use the current value of the array reference
     const imgs = images.current;
 
@@ -46,6 +47,7 @@ function ProjectsView({ type }) {
 
   return (
     <Grid2 container justifyContent="center" columns={1} spacing={2} m={2} p={2}>
+      <Typography variant="h2">{imgs.name}</Typography>
       <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
       {images.current.map((item) => (
         <ImageListItem key={item.img}>

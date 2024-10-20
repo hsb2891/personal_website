@@ -10,9 +10,9 @@ function Home({ darkTheme }) {
       <Grid2 container spacing={2} m={2} p={2}>
         <Grid2 item>
           { darkTheme ? (
-            <img src={whiteLogo} width={250} height={250} alt="loading..." /> )
+            <img src={whiteLogo} width={500} height={500} alt="loading..." /> )
             : (
-            <img src={blackLogo} width={250} height={250} alt="loading..." />
+            <img src={blackLogo} width={500} height={500} alt="loading..." />
           )}
         </Grid2>
       </Grid2>

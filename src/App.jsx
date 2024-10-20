@@ -15,6 +15,8 @@ import { Paper, Grid2 } from '@mui/material';
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { DarkMode } from '@mui/icons-material';
+import { LightMode } from '@mui/icons-material';
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(true);
@@ -45,15 +47,18 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <div style={themeStyles}>
-          <Grid2 container spacing={0} direction="column" alignItems="center" justifyContent="center">
+          <Box align='center'>
+            <MainAppMenu darkTheme={darkTheme}/>
+          </Box>
+          <Box align='right'>
             <Button
+              startIcon={darkTheme ? <DarkMode/> : <LightMode/>}
               color={darkTheme ? '#FFFFFF' : '#000000'}
               onClick={toggleTheme}
               sx={{ marginTop: '20px' }}
-            >
-                Switch to {darkTheme ? 'Light' : 'Dark'} Mode
-            </Button>
-            <MainAppMenu darkTheme={darkTheme}/>
+            />
+          </Box>
+          <Grid2 container spacing={0} direction="column" alignItems="center" justifyContent="center">
             <Grid2 item>
               <Routes>
                 <Route path="/" element={<Home darkTheme={darkTheme}/>}/>
