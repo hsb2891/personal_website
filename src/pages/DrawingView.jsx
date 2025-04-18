@@ -25,6 +25,10 @@ function DrawingView() {
     <>
       <Grid2 container justifyContent="center">
         <Grid2>
+        </Grid2>
+      </Grid2>
+      {/* <Grid2 container justifyContent="center">
+        <Grid2>
           <ImageList sx={{ width: 1000 }} cols={2}>
             {itemData.map((item) => (
               <ImageListItem key={item.title}>
@@ -45,7 +49,7 @@ function DrawingView() {
             ))}
           </ImageList>
         </Grid2>
-      </Grid2>
+      </Grid2> */}
     </>
   );
 }

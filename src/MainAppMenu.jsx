@@ -2,7 +2,7 @@ import React from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import ShareIcon from '@mui/icons-material/Share';
-import { ButtonGroup, Button, SpeedDial, Grid } from '@mui/material';
+import { ButtonGroup, Button, SpeedDial, Grid, Tooltip } from '@mui/material';
 import { SpeedDialAction } from '@mui/material';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
@@ -28,11 +28,13 @@ function MainAppMenu(darkTheme) {
     <Grid2 alignItems="center">
       <ButtonGroup color={darkTheme ? '#FFFFFF' : '#000000'} variant="text" aria-label="Main menu">
         {actions.map((action) => (
-          <Button key={action.name} onClick={e => {
-            reroute(action.name.toLowerCase());
-          }}>
-            {action.icon}
-          </Button>
+          <Tooltip title={action.name === '' ? 'Home' : action.name} arrow>
+            <Button key={action.name} onClick={e => {
+              reroute(action.name.toLowerCase());
+            }}>
+              {action.icon}
+            </Button>
+          </Tooltip>
         ))}
       </ButtonGroup>
     </Grid2>

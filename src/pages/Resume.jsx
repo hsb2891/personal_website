@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Typography,
   Container,
-  Card,
-  CardContent,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -14,8 +12,50 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { List, ListItem, ListItemText } from '@mui/material';
 import Info from './info/resumeInfo';
+import axios from 'axios';
 
 function Resume() {
+  const [workExperiences, setWorkExperiences] = useState([]);
+  const [leadershipExperiences, setLeadershipExperiences] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [skills, setSkills] = useState([]);
+
+  const fetchExperiences = async () => {
+    const response = await axios.get('http://localhost:3001/experiences');
+    let work = [];
+    let leadership = [];
+    let project = [];
+    let skill = [];
+
+    response.data.map((exp) => {
+      switch (exp.exp_type) {
+        case 'work':
+          work.push(exp);
+          break;
+        case 'leadership':
+          leadership.push(exp);
+          break;
+        case 'project':
+          project.push(exp);
+          break;
+        case 'skill':
+          skill.push(exp);
+          break;
+        default:
+          break
+      }
+    });
+
+    setWorkExperiences(work);
+    setLeadershipExperiences(leadership);
+    setProjects(project);
+    setSkills(skill);
+  }
+
+  useEffect(() => {
+    fetchExperiences();
+  }, []);
+
   return (
     <Container>
       <Box my={4}>
@@ -35,11 +75,11 @@ function Resume() {
       <Box my={4} align="center">
         <Typography variant="h4">Work Experience</Typography>
       </Box>
-      {Info.WORK_EXPERIENCE.map((exp) => (
+      {workExperiences.map((exp) => (
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Grid2 container spacing={2}>
-              <Typography variant="h6">{exp.company} | {exp.role} | {exp.period}</Typography>
+              <Typography variant="h6">{exp.name} | {exp.role} | {exp.period}</Typography>
             </Grid2>
           </AccordionSummary>
           <AccordionDetails>
@@ -60,11 +100,11 @@ function Resume() {
           Leadership Experience
         </Typography>
       </Box>
-      {Info.LEADERSHIP_EXPERIENCE.map((exp) => (
+      {leadershipExperiences.map((exp) => (
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Grid2 container spacing={2}>
-              <Typography variant="h6">{exp.organization} | {exp.role} | {exp.period}</Typography>
+              <Typography variant="h6">{exp.name} | {exp.role} | {exp.period}</Typography>
             </Grid2>
           </AccordionSummary>
           <AccordionDetails>
@@ -85,7 +125,7 @@ function Resume() {
           Projects
         </Typography>
       </Box>
-      {Info.PROJECTS.map((proj) => (
+      {projects.map((proj) => (
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Grid2 container spacing={2}>
@@ -113,9 +153,9 @@ function Resume() {
       <Accordion>
         <AccordionSummary>
           <Grid2 container spacing={2}>
-            {Info.SKILLS.map((skill, index) => (
+            {skills.map((skill, index) => (
               <Grid2 item xs={12} key={index}>
-                <Chip label={skill} />
+                <Chip label={skill.name} />
               </Grid2>
             ))}
           </Grid2>

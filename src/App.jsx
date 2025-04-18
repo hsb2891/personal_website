@@ -9,7 +9,7 @@ import Socials from './pages/Socials';
 import Projects from './pages/Projects';
 import Recipes from './pages/Recipes';
 import MainAppMenu from './MainAppMenu';
-import { Container } from '@mui/material';
+import { Container, Tooltip } from '@mui/material';
 import { Box } from '@mui/material';
 import { Paper, Grid2 } from '@mui/material';
 import { Button } from '@mui/material';
@@ -44,39 +44,44 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <div style={themeStyles}>
-          <Box align='center'>
-            <MainAppMenu darkTheme={darkTheme}/>
-          </Box>
-          <Box align='right'>
-            <Button
-              startIcon={darkTheme ? <DarkMode/> : <LightMode/>}
-              color={darkTheme ? '#FFFFFF' : '#000000'}
-              onClick={toggleTheme}
-              sx={{ marginTop: '20px' }}
-            />
-          </Box>
-          <Grid2 container spacing={0} direction="column" alignItems="center" justifyContent="center">
-            <Grid2 item>
-              <Routes>
-                <Route path="/" element={<Home darkTheme={darkTheme}/>}/>
-                <Route path="/resume" element={<Resume/>}/>
-                <Route path="/projects" element={<Projects/>}/>
-                {/* <Route path="/recipes" element={<Recipes/>}/> */}
-                <Route path="/socials" element={<Socials/>}/>
-              </Routes>
+    <>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <div style={themeStyles}>
+            <Box align='right'>
+              <Tooltip title={`Switch to ${darkTheme ? 'Light' : 'Dark'} Mode`}>
+                <Button
+                  startIcon={darkTheme ? <LightMode/> : <DarkMode/>}
+                  color={darkTheme ? '#FFFFFF' : '#000000'}
+                  onClick={toggleTheme}
+                  sx={{ marginTop: '20px' }}
+                />
+              </Tooltip>
+            </Box>
+            <Box align='center'>
+              <MainAppMenu darkTheme={darkTheme}/>
+            </Box>
+            <Grid2 container spacing={0} direction="column" alignItems="center" justifyContent="center">
+              <Grid2 item>
+                <Routes>
+                  <Route path="/" element={<Home darkTheme={darkTheme}/>}/>
+                  <Route path="/resume" element={<Resume/>}/>
+                  <Route path="/projects" element={<Projects/>}/>
+                  {/* <Route path="/recipes" element={<Recipes/>}/> */}
+                  <Route path="/socials" element={<Socials/>}/>
+                </Routes>
+              </Grid2>
             </Grid2>
-          </Grid2>
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2">
-              © 2024 Hiranmayee's Website
-            </Typography>
-          </Box>
-        </div>
-      </Router>
-    </ThemeProvider>
+            <Box sx={{ textAlign: 'center' }}>
+              <Typography variant="body2">
+                © 2024 Hiranmayee's Website
+              </Typography>
+            </Box>
+          </div>
+        </Router>
+      </ThemeProvider>
+    </>
   );
 }
 
